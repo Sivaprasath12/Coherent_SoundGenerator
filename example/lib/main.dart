@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sound_generator/sound_generator.dart';
-import 'package:sound_generator/waveTypes.dart';
+import 'package:coherent_soundgenerator/sound_generator.dart';
+import 'package:coherent_soundgenerator/waveTypes.dart';
 
 void main() {
   runApp(MyApp());

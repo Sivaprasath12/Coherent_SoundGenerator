@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sound_generator/sound_generator.dart';
+import 'package:coherent_soundgenerator/sound_generator.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('sound_generator');

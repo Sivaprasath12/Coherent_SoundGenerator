@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/services.dart';
-import 'package:sound_generator/waveTypes.dart';
+import 'package:coherent_soundgenerator/waveTypes.dart';
 
 class SoundGenerator {
   static const MethodChannel _channel = const MethodChannel('sound_generator');

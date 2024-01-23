@@ -1,4 +1,4 @@
-name: sound_generator_example
+name: coherent_sound_generator
 description: Demonstrates how to use the sound_generator plugin.
 
 # The following line prevents the package from being accidentally published to
@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  sound_generator:
+  coherent_soundgenerator:
     # When depending on this package from a real application you should use:
     #   sound_generator: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints
