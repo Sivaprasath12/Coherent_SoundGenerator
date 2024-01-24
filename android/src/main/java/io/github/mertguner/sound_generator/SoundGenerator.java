@@ -34,7 +34,7 @@ public class SoundGenerator {
     public void setAutoUpdateOneCycleSample(boolean autoUpdateOneCycleSample) {
         if (generator != null)
             generator.setAutoUpdateOneCycleSample(autoUpdateOneCycleSample);
-            generator_noise.setAutoUpdateOneCycleSample(autoUpdateOneCycleSample);
+        generator_noise.setAutoUpdateOneCycleSample(autoUpdateOneCycleSample);
 
     }
 
@@ -58,7 +58,7 @@ public class SoundGenerator {
     public void setFrequency(float v) {
         if (generator != null)
             generator.setFrequency(v);
-        generator_noise.setFrequency(v);
+        generator_noise.setFrequency(125);
     }
 
     public float getFrequency() {
@@ -71,6 +71,11 @@ public class SoundGenerator {
         if (generator != null)
             generator.setDecibel(v);
         generator_noise.setDecibel(v);
+    }
+
+    public void setNoiseDecibel(float v) {
+        if (generator_noise != null)
+            generator_noise.setNoiseDecibel(v);
     }
 
     public float getDecibel() {

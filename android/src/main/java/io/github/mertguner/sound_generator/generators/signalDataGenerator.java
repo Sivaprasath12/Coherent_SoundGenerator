@@ -18,6 +18,7 @@ public class signalDataGenerator {
     private float frequency = 50;
 
     private float decibel = 20;
+    private float noise_decibel = 30;
     private baseGenerator generator = new sinusoidalGenerator();
 
     private baseGenerator generator_noise = new NoiseGenerator();
@@ -65,6 +66,9 @@ public class signalDataGenerator {
     public void setDecibel(float decibel) {
         this.decibel = decibel;
     }
+    public void setNoiseDecibel(float decibel) {
+        this.noise_decibel = decibel;
+    }
 
     public signalDataGenerator(int bufferSamplesSize, int sampleRate) {
         this.bufferSamplesSize = bufferSamplesSize;
@@ -75,15 +79,15 @@ public class signalDataGenerator {
         updateNoiseData();
         createOneCycleData();
     }
-    private void updateData() {
+    /*private void updateData() {
         creatingNewData = true;
         for (int i = 0; i < bufferSamplesSize; i++) {
             oldFrequency += ((frequency - oldFrequency) * smoothStep);
             float value = generator.getValue(ph, _2Pi);
 
-            // Apply the specified decibel level to the generated sample
-            float amplitude = (float) Math.pow(10, decibel / 20.0);
-            value *= amplitude;
+            // Do not apply decibel level here, apply it after generating the value
+            // float amplitude = (float) Math.pow(10, decibel / 20.0);
+            // value *= amplitude;
 
             backgroundBuffer[i] = (short) value;
             ph += (oldFrequency * phCoefficient);
@@ -93,7 +97,52 @@ public class signalDataGenerator {
                 ph -= _2Pi;
             }
         }
+
+        // Apply the specified decibel level to the generated samples after generating the values
+        float amplitude = (float) Math.pow(10, decibel / 20.0);
+        for (int i = 0; i < bufferSamplesSize; i++) {
+            backgroundBuffer[i] *= amplitude;
+        }
+
         creatingNewData = false;
+    }*/
+
+    private void updateData() {
+        creatingNewData = true;
+
+        // Generate the waveform without applying decibel level to each sample
+        for (int i = 0; i < bufferSamplesSize; i++) {
+            oldFrequency += ((frequency - oldFrequency) * smoothStep);
+            float value = generator.getValue(ph, _2Pi);
+            backgroundBuffer[i] = (short) value;
+            ph += (oldFrequency * phCoefficient);
+
+            // Performance optimization: use if block instead of modulus operation
+            if (ph > _2Pi) {
+                ph -= _2Pi;
+            }
+        }
+
+        // Apply the specified decibel level to the entire waveform
+        float maxAmplitude = findMaxAmplitude(backgroundBuffer);
+        float amplitude = (float) Math.pow(10, decibel / 20.0);
+        for (int i = 0; i < bufferSamplesSize; i++) {
+            backgroundBuffer[i] = (short) (backgroundBuffer[i] * amplitude / maxAmplitude);
+        }
+
+        creatingNewData = false;
+    }
+
+    // Helper method to find the maximum amplitude in the waveform
+    private float findMaxAmplitude(short[] waveform) {
+        float maxAmplitude = 0;
+        for (short sample : waveform) {
+            float sampleValue = Math.abs(sample);
+            if (sampleValue > maxAmplitude) {
+                maxAmplitude = sampleValue;
+            }
+        }
+        return maxAmplitude;
     }
 
 
@@ -104,7 +153,7 @@ public class signalDataGenerator {
             float value = generator_noise.getValue(ph, _2Pi);
 
             // Apply the specified decibel level to the generated sample
-            float amplitude = (float) Math.pow(10, decibel / 20.0);
+            float amplitude = (float) Math.pow(10, noise_decibel / 40.0);
             value *= amplitude;
 
             backgroundBuffer[i] = (short) value;

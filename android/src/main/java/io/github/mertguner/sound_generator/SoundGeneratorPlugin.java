@@ -80,6 +80,9 @@ public class SoundGeneratorPlugin implements FlutterPlugin, MethodCallHandler {
     }else if (call.method.equals("setDecibel")) {
       double decibel = call.argument("decibel");
       soundGenerator.setDecibel((float)decibel);
+    }else if(call.method.equals("setNoiseDecibel")){
+      double noise_decibel = call.argument("noise_decibel");
+      soundGenerator.setNoiseDecibel((float)noise_decibel);
     }else if (call.method.equals("setWaveform")) {
       String waveType = call.argument("waveType");
       soundGenerator.setWaveform(WaveTypes.valueOf(waveType));
