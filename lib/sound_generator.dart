@@ -38,8 +38,6 @@ class SoundGenerator {
           .map<bool>((value) => value);
 
       _onIsPlayingnoiseChangedInitialized = true;
-
-      log("saasasas ${_onGetIsPlayingnoiseChanged}");
     }
 
     return _onGetIsPlayingnoiseChanged;
