@@ -10,5 +10,8 @@
 ## [0.0.4] - 25/01/2024
 * Integrated wave with Beep sound and Bug Fixes, Stable Release
 * 
-* ## [0.0.5] - 25/01/2024
+## [0.0.5] - 25/01/2024
+* Bug Fixes, Stable Release
+* 
+## [0.0.6] - 25/01/2024
 * Bug Fixes, Stable Release
