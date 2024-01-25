@@ -107,7 +107,7 @@ public class signalDataGenerator {
         creatingNewData = false;
     }*/
 
-    private void updateData() {
+/*    private void updateData() {
         creatingNewData = true;
 
         // Generate the waveform without applying decibel level to each sample
@@ -131,7 +131,48 @@ public class signalDataGenerator {
         }
 
         creatingNewData = false;
+    }*/
+
+    private void updateData() {
+        creatingNewData = true;
+
+
+        // Calculate the total number of samples for the beep sound
+        int beepDurationSamples = (int) (sampleRate * 0.5); // Adjust the duration as needed
+
+        // Generate the waveform for the beep sound
+        for (int i = 0; i < bufferSamplesSize; i++) {
+            if (i < beepDurationSamples) {
+                oldFrequency += ((frequency - oldFrequency) * smoothStep);
+                float value = generator.getValue(ph, _2Pi);
+
+                // Apply envelope to create rising and falling edges
+                float envelope = (float) i / beepDurationSamples;
+                value *= envelope;
+
+
+                backgroundBuffer[i] = (short) value;
+                ph += (oldFrequency * phCoefficient);
+
+                // Performance optimization: use if block instead of modulus operation
+                if (ph > _2Pi) {
+                    ph -= _2Pi;
+                }
+            } else {
+                backgroundBuffer[i] = 0; // Set the remaining samples to zero for silence
+            }
+        }
+
+        // Apply the specified decibel level to the entire waveform
+        float maxAmplitude = findMaxAmplitude(backgroundBuffer);
+        float amplitude = (float) Math.pow(10, decibel / 20.0);
+        for (int i = 0; i < bufferSamplesSize; i++) {
+            backgroundBuffer[i] = (short) (backgroundBuffer[i] * amplitude / maxAmplitude);
+        }
+
+        creatingNewData = false;
     }
+
 
     // Helper method to find the maximum amplitude in the waveform
     private float findMaxAmplitude(short[] waveform) {
