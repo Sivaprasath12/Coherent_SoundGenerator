@@ -127,6 +127,12 @@ class SoundGenerator {
         "setDecibel", <String, dynamic>{"decibel": decibel});
   }
 
+  /// Set noisedecibel
+  static void setNoiseDecibel(double decibel) async {
+    await _channel.invokeMethod(
+        "setNoiseDecibel", <String, dynamic>{"noise_decibel": decibel});
+  }
+
   /// Set Balance Range from -1 to 1
   static void setBalance(double balance) async {
     await _channel
