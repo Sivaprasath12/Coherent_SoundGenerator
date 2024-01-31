@@ -75,8 +75,9 @@ public class signalDataGenerator {
         backgroundBuffer = new short[bufferSamplesSize];
         buffer = new short[bufferSamplesSize];
         setSampleRate(sampleRate);
-        updateData();
         updateNoiseData();
+        updateData();
+
         createOneCycleData();
     }
     /*private void updateData() {
@@ -107,7 +108,8 @@ public class signalDataGenerator {
         creatingNewData = false;
     }*/
 
-/*    private void updateData() {
+    //without beep sound
+    private void updateData() {
         creatingNewData = true;
 
         // Generate the waveform without applying decibel level to each sample
@@ -131,8 +133,10 @@ public class signalDataGenerator {
         }
 
         creatingNewData = false;
-    }*/
+    }
 
+    //with beepsound
+    /*
     private void updateData() {
         creatingNewData = true;
 
@@ -171,7 +175,8 @@ public class signalDataGenerator {
         }
 
         creatingNewData = false;
-    }
+    }*/
+
 
 
     // Helper method to find the maximum amplitude in the waveform

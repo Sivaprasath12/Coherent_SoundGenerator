@@ -169,7 +169,6 @@ public class SoundGenerator {
 
     public void startPlayback() {
         if (bufferThread != null || audioTrack == null) return;
-
         isPlaying = true;
 
         bufferThread = new Thread(new Runnable() {
