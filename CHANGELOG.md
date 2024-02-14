@@ -19,5 +19,8 @@
 ## [0.0.7] - 31/01/2024
 * Beep sound removed, Noise issue when starting puretone, Stable Release
 *
-## [0.0.8] - 31/01/2024
+## [0.0.8] - 14/02/2024
 * Beep sound added, Stable Release
+*
+## [0.0.9] - 14/02/2024
+* Stable Release
