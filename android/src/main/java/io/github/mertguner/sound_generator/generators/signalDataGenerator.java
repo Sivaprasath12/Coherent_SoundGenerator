@@ -108,6 +108,7 @@ public class signalDataGenerator {
         creatingNewData = false;
     }*/
 
+    /*
     //without beep sound
     private void updateData() {
         creatingNewData = true;
@@ -134,15 +135,12 @@ public class signalDataGenerator {
 
         creatingNewData = false;
     }
-
+*/
     //with beepsound
-    /*
     private void updateData() {
         creatingNewData = true;
 
-
-        // Calculate the total number of samples for the beep sound
-        int beepDurationSamples = (int) (sampleRate * 0.5); // Adjust the duration as needed
+        int beepDurationSamples = (int) (sampleRate * 0.5); // Adjust the duration of the beep sound
 
         // Generate the waveform for the beep sound
         for (int i = 0; i < bufferSamplesSize; i++) {
@@ -151,9 +149,8 @@ public class signalDataGenerator {
                 float value = generator.getValue(ph, _2Pi);
 
                 // Apply envelope to create rising and falling edges
-                float envelope = (float) i / beepDurationSamples;
+                float envelope = 0.5f - 0.5f * (float)Math.cos(2.0 * Math.PI * i / beepDurationSamples);
                 value *= envelope;
-
 
                 backgroundBuffer[i] = (short) value;
                 ph += (oldFrequency * phCoefficient);
@@ -175,7 +172,8 @@ public class signalDataGenerator {
         }
 
         creatingNewData = false;
-    }*/
+    }
+
 
 
 
