@@ -24,3 +24,6 @@
 *
 ## [0.0.9] - 14/02/2024
 * Stable Release
+* 
+## [0.0.10] - 16/02/2024
+* dynamic sound data

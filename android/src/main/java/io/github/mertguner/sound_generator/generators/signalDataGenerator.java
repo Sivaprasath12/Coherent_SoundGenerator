@@ -214,6 +214,7 @@ public class signalDataGenerator {
     public short[] getData() {
         if (!creatingNewData) {
             System.arraycopy(backgroundBuffer, 0, buffer, 0, bufferSamplesSize);
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {

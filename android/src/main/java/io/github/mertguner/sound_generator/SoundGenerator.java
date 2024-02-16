@@ -128,6 +128,9 @@ public class SoundGenerator {
                     AudioFormat.CHANNEL_OUT_MONO,
                     AudioFormat.ENCODING_PCM_16BIT);
 
+            System.out.println("sxkjaxjcuyjc samplerate: "+sampleRate);
+            System.out.println("sxkjaxjcuyjc buffersamplesize: "+minSamplesSize);
+
             generator = new signalDataGenerator(minSamplesSize, sampleRate);
 
             audioTrack = new AudioTrack(
@@ -178,7 +181,37 @@ public class SoundGenerator {
                 audioTrack.setPlaybackHeadPosition(0);
                 audioTrack.play();
                 while (isPlaying) {
-                    audioTrack.write(generator.getData(), 0, minSamplesSize);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                        System.out.println("sxkjaxjcuyjc data: "+generator.getData());
+                        audioTrack.write(generator.getData(), 0, minSamplesSize);
+                    }
+                }
+            }
+        }
+        );
+
+        isPlayingStreamHandler.change(true);
+
+        bufferThread.start();
+    }
+
+    public void startPlayback2(final float[] data) {
+        if (bufferThread != null || audioTrack == null) return;
+        isPlaying = true;
+
+        bufferThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                audioTrack.flush();
+                audioTrack.setPlaybackHeadPosition(0);
+                audioTrack.play();
+                while (isPlaying) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                        System.out.println("sxkjaxjcuyjc data: "+generator.getData());
+                        audioTrack.write(data, 0, minSamplesSize,AudioTrack.WRITE_BLOCKING);
+                    }
                 }
             }
         }
