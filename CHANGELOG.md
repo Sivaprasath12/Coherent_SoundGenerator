@@ -27,3 +27,6 @@
 * 
 ## [0.0.10] - 16/02/2024
 * dynamic sound data
+* 
+## [0.0.11] - 16/02/2024
+* new play_calibrations function added

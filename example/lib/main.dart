@@ -111,7 +111,8 @@ class _MyAppState extends State<MyApp> {
                               onPressed: () {
                                 isPlaying
                                     ? SoundGenerator.stop()
-                                    : SoundGenerator.play();
+                                    : SoundGenerator.play_calibration(1000, 44100, 10922, 44100*3, 0);
+                                // SoundGenerator.play_calibration();
                               })),
                       SizedBox(height: 5),
                       Divider(

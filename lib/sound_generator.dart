@@ -69,6 +69,21 @@ class SoundGenerator {
     await _channel.invokeMethod('play');
   }
 
+  /// Play sound
+  // static void play_calibration() async {
+  //   await _channel.invokeMethod('play_calibration');
+  // }
+  static Future<bool> play_calibration(int frequency, int sampleRate, int actualVolume, int numSamples, int s) async {
+    final bool play_calibration = await _channel
+        .invokeMethod("play_calibration", <String, dynamic>{
+          "frequency": frequency,
+          "sampleRate":sampleRate,
+          "actualVolume":actualVolume,
+          "numSamples":numSamples,
+          "s":s});
+    return play_calibration;
+  }
+
   /// Stop playing sound
   static void stop() async {
     await _channel.invokeMethod('stop');
@@ -151,4 +166,5 @@ class SoundGenerator {
     await _channel
         .invokeMethod("setVolume", <String, dynamic>{"volume": volume});
   }
+
 }

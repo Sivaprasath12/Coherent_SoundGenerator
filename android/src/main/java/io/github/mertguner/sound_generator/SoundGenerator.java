@@ -22,7 +22,6 @@ public class SoundGenerator {
     private Thread buffernoiseThread;
     private Thread bufferThread;
     private AudioTrack audioTrack;
-
     private AudioTrack audioTracknoise;
     private signalDataGenerator generator, generator_noise;
     private boolean isPlaying = false;
@@ -30,6 +29,14 @@ public class SoundGenerator {
     private int minSamplesSize;
     private WaveTypes waveType = WaveTypes.SINUSOIDAL;
     private float rightVolume = 1, leftVolume = 1;
+
+    //--
+    int frequency;
+    int sampleRate;
+    int actualVolume;
+    int numSamples;
+    int s;
+    //--
 
     public void setAutoUpdateOneCycleSample(boolean autoUpdateOneCycleSample) {
         if (generator != null)
@@ -196,30 +203,14 @@ public class SoundGenerator {
         bufferThread.start();
     }
 
-    public void startPlayback2(final float[] data) {
-        if (bufferThread != null || audioTrack == null) return;
-        isPlaying = true;
-
-        bufferThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                audioTrack.flush();
-                audioTrack.setPlaybackHeadPosition(0);
-                audioTrack.play();
-                while (isPlaying) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-                        System.out.println("sxkjaxjcuyjc data: "+generator.getData());
-                        audioTrack.write(data, 0, minSamplesSize,AudioTrack.WRITE_BLOCKING);
-                    }
-                }
-            }
-        }
-        );
-
-        isPlayingStreamHandler.change(true);
-
-        bufferThread.start();
+    public void startPlayback2(int start_frequency, int start_sampleRate, int start_actualVolume, int start_numSamples, int start_s) {
+        frequency = start_frequency;
+        sampleRate = start_sampleRate;
+        actualVolume = start_actualVolume;
+        numSamples = start_numSamples;
+        s = start_s;
+        TestThread  testThread = new TestThread();
+        testThread.start();
     }
 
     public void stopPlayback() {
@@ -288,6 +279,70 @@ public class SoundGenerator {
 
         if (audioTracknoise != null) {
             audioTracknoise.stop();
+        }
+    }
+
+
+    public float[] genTone(float increment, int volume, int numSamples){
+
+        float angle = 0;
+        float[] generatedSnd = new float[numSamples];
+        for (int i = 0; i < numSamples; i++){
+            generatedSnd[i] = (float) (Math.sin(angle)*volume/32768);
+            angle += increment;
+        }
+        return generatedSnd;
+    }
+
+    public AudioTrack playSound(float[] generatedSnd, int ear, int sampleRate) {
+        AudioTrack audioTrack = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+                    sampleRate,
+                    AudioFormat.CHANNEL_OUT_MONO,
+                    AudioFormat.ENCODING_PCM_FLOAT,
+                    generatedSnd.length,
+                    AudioTrack.MODE_STATIC);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            audioTrack.write(generatedSnd,0,generatedSnd.length,AudioTrack.WRITE_BLOCKING);
+        }
+        if (ear == 0) {
+            audioTrack.setStereoVolume(0, AudioTrack.getMaxVolume());
+        } else {
+            audioTrack.setStereoVolume(AudioTrack.getMaxVolume(), 0);
+        }
+        audioTrack.play();
+        return audioTrack;
+    }
+
+    public int randomTime(){
+
+        double num = Math.random();
+        return (int) (1500+1500*num);
+    }
+
+    public class TestThread extends Thread {
+
+        public void run() {
+            AudioTrack audioTrack = null;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+
+
+                float increment = (float) (2*Math.PI) * frequency / sampleRate;
+                System.out.println("sxkjaxjcuyjc data: "+increment);
+                audioTrack = playSound(genTone(increment,actualVolume, numSamples), s, sampleRate);
+
+//                float increment = (float) (2*Math.PI) * 1000 / 44100;
+//                audioTrack = playSound(genTone(increment,10922, 44100), 0, 44100);
+            }
+
+            try {
+                Thread.sleep(randomTime());
+            } catch (InterruptedException e) {}
+            audioTrack.release();
         }
     }
 

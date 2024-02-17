@@ -62,9 +62,15 @@ public class SoundGeneratorPlugin implements FlutterPlugin, MethodCallHandler {
     }else if (call.method.equals("release")) {
       soundGenerator.release();
     }else if (call.method.equals("play")) {
-      float[] data = call.argument("data");
-//      soundGenerator.startPlayback();
-      soundGenerator.startPlayback2(data);
+      soundGenerator.startPlayback();
+    }else if (call.method.equals("play_calibration")) {
+      int frequency= call.argument("frequency");
+      int sampleRate= call.argument("sampleRate");
+      int actualVolume= call.argument("actualVolume");
+      int numSamples= call.argument("numSamples");
+      int s= call.argument("s");
+
+      soundGenerator.startPlayback2(frequency,  sampleRate,  actualVolume,  numSamples,  s);
     }else if (call.method.equals("stop")) {
       soundGenerator.stopPlayback();
     }else if (call.method.equals("play_noise")) {
