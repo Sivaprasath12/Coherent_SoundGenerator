@@ -7,8 +7,9 @@ class SoundGenerator {
   static const MethodChannel _channel = const MethodChannel('sound_generator');
   static const EventChannel _onChangeIsPlayingDataHandler = const EventChannel(
       'io.github.coherent.sound_generator/onChangeIsPlaying');
-  static const EventChannel _onChangeIsPlayingnoiseDataHandler = const EventChannel(
-      'io.github.coherent.sound_generator/onChangeIsPlayingnoise');
+  static const EventChannel _onChangeIsPlayingnoiseDataHandler =
+      const EventChannel(
+          'io.github.coherent.sound_generator/onChangeIsPlayingnoise');
   static const EventChannel _onOneCycleDataHandler = const EventChannel(
       'io.github.coherent.sound_generator/onOneCycleDataHandler');
 
@@ -42,7 +43,6 @@ class SoundGenerator {
     return _onGetIsPlayingnoiseChanged;
   }
 
-
   /// One cycle data changed event
   static bool _onGetOneCycleDataHandlerInitialized = false;
   static late Stream<List<int>> _onGetOneCycleDataHandler;
@@ -73,25 +73,35 @@ class SoundGenerator {
   // static void play_calibration() async {
   //   await _channel.invokeMethod('play_calibration');
   // }
-  static Future<bool> play_calibration(int frequency, int sampleRate, int actualVolume, int numSamples, int s) async {
-    final bool play_calibration = await _channel
-        .invokeMethod("play_calibration", <String, dynamic>{
-          "frequency": frequency,
-          "sampleRate":sampleRate,
-          "actualVolume":actualVolume,
-          "numSamples":numSamples,
-          "s":s});
+  static Future<bool> play_calibration(int frequency, int sampleRate,
+      int actualVolume, int numSamples, int s) async {
+    final bool play_calibration =
+        await _channel.invokeMethod("play_calibration", <String, dynamic>{
+      "frequency": frequency,
+      "sampleRate": sampleRate,
+      "actualVolume": actualVolume,
+      "numSamples": numSamples,
+      "s": s
+    });
     return play_calibration;
+  }
+
+  static Future<bool> play_noise(int frequency, int sampleRate,
+      int actualVolume, int numSamples, int s) async {
+    final bool play_noise =
+        await _channel.invokeMethod("play_noise", <String, dynamic>{
+      "frequency": frequency,
+      "sampleRate": sampleRate,
+      "actualVolume": actualVolume,
+      "numSamples": numSamples,
+      "s": s
+    });
+    return play_noise;
   }
 
   /// Stop playing sound
   static void stop() async {
     await _channel.invokeMethod('stop');
-  }
-
-  /// Play noise
-  static void play_noise() async {
-    await _channel.invokeMethod('play_noise');
   }
 
   /// Stop playing noise
@@ -135,11 +145,10 @@ class SoundGenerator {
         "setFrequency", <String, dynamic>{"frequency": frequency});
   }
 
-
   /// Set decibel
   static void setDecibel(double decibel) async {
-    await _channel.invokeMethod(
-        "setDecibel", <String, dynamic>{"decibel": decibel});
+    await _channel
+        .invokeMethod("setDecibel", <String, dynamic>{"decibel": decibel});
   }
 
   /// Set noisedecibel
@@ -166,5 +175,4 @@ class SoundGenerator {
     await _channel
         .invokeMethod("setVolume", <String, dynamic>{"volume": volume});
   }
-
 }

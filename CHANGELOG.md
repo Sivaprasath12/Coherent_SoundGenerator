@@ -33,3 +33,6 @@
 * 
 ## [0.0.12] - 27/02/2024
 * new play_noise with different decibel
+*
+## [0.0.13] - 27/02/2024
+* new play_noise with dynamic value

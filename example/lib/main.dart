@@ -110,10 +110,11 @@ class _MyAppState extends State<MyApp> {
                                   isPlaying ? Icons.stop : Icons.play_arrow),
                               onPressed: () {
                                 isPlaying
+                                    // ? SoundGenerator.stop_noise()
+                                    // : SoundGenerator.play_noise();
                                     ? SoundGenerator.stop()
-                                    : SoundGenerator.play();
-                                    // ? SoundGenerator.stop()
-                                    // : SoundGenerator.play_calibration(1000, 44100, 10922, 44100*3, 0);
+                                    : SoundGenerator.play_calibration(
+                                        1000, 44100, 10922, 44100 * 3, 0);
                               })),
                       SizedBox(height: 5),
                       Divider(
@@ -124,14 +125,17 @@ class _MyAppState extends State<MyApp> {
                           radius: 30,
                           backgroundColor: Colors.amberAccent,
                           child: IconButton(
-                              icon: Icon(
-                                  isPlayingnoise ? Icons.stop : Icons.play_arrow),
+                              icon: Icon(isPlayingnoise
+                                  ? Icons.stop
+                                  : Icons.play_arrow),
                               onPressed: () {
                                 isPlayingnoise
-                                    ? SoundGenerator.stop()
-                                    : SoundGenerator.play_calibration(1000, 44100, 10922, 44100*3, 0);
-                                    // ? SoundGenerator.stop_noise()
-                                    // : SoundGenerator.play_noise();
+                                    // ? SoundGenerator.stop()
+                                    // : SoundGenerator.play_calibration(
+                                    //     1000, 44100, 10922, 44100 * 3, 0);
+                                    ? SoundGenerator.stop_noise()
+                                    : SoundGenerator.play_noise(
+                                        1000, 44100, 10922, 44100 * 30, 1);
                               })),
                       SizedBox(height: 5),
                       Divider(

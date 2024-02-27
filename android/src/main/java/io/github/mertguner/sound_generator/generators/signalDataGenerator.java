@@ -192,6 +192,12 @@ public class signalDataGenerator {
 
     private void updateNoiseData() {
         creatingNewData = true;
+        System.out.println("xjsgdcyugscyu 1: "+bufferSamplesSize);
+        System.out.println("xjsgdcyugscyu 2: "+oldFrequency);
+        System.out.println("xjsgdcyugscyu 3: "+frequency);
+        System.out.println("xjsgdcyugscyu 4: "+smoothStep);
+        System.out.println("xjsgdcyugscyu 5: "+bufferSamplesSize);
+        System.out.println("xjsgdcyugscyu 6: "+noise_decibel);
         for (int i = 0; i < bufferSamplesSize; i++) {
             oldFrequency += ((frequency - oldFrequency) * smoothStep);
             float value = generator_noise.getValue(ph, _2Pi);
@@ -227,6 +233,7 @@ public class signalDataGenerator {
 
     public short[] getNoiseData() {
         if (!creatingNewData) {
+
             System.arraycopy(backgroundBuffer, 0, buffer, 0, bufferSamplesSize);
             new Thread(new Runnable() {
                 @Override

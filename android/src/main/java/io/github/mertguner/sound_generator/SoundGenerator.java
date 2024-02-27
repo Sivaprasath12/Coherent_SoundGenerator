@@ -6,6 +6,8 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Build;
 
+import java.util.Random;
+
 import io.github.mertguner.sound_generator.generators.NoiseGenerator;
 import io.github.mertguner.sound_generator.generators.sawtoothGenerator;
 import io.github.mertguner.sound_generator.generators.signalDataGenerator;
@@ -211,6 +213,7 @@ public class SoundGenerator {
         s = start_s;
         TestThread  testThread = new TestThread();
         testThread.start();
+
     }
 
     public void stopPlayback() {
@@ -252,7 +255,11 @@ public class SoundGenerator {
                 audioTracknoise.setPlaybackHeadPosition(0);
                 audioTracknoise.play();
                 while (isPlayingnoise) {
+
+                    System.out.println("xjsgdcyugscyu 0: "+generator_noise.getNoiseData().toString());
                     audioTracknoise.write(generator_noise.getNoiseData(), 0, minSamplesSize);
+
+
                 }
             }
         }
@@ -342,6 +349,48 @@ public class SoundGenerator {
             try {
                 Thread.sleep(randomTime());
             } catch (InterruptedException e) {}
+            audioTrack.release();
+        }
+    }
+
+    public void startPlayback3(int start_sampleRate, int start_actualVolume, int start_numSamples,  int s) {
+        sampleRate = start_sampleRate;
+        actualVolume = start_actualVolume;
+        numSamples = start_numSamples;
+        this.s = s;
+        TestThread2 testThread = new TestThread2();
+        testThread.start();
+    }
+
+    public float[] genNoise(int volume, int numSamples) {
+        float[] generatedSnd = new float[numSamples];
+        Random random = new Random();
+        for (int i = 0; i < numSamples; ++i) {
+            // Generate random noise within the range [-1, 1] and scale by the volume
+            generatedSnd[i] = (random.nextFloat() * 2 - 1) * volume / 32768;
+        }
+        return generatedSnd;
+    }
+
+    public class TestThread2 extends Thread {
+        public void run() {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                audioTrack = playSound(genNoise(actualVolume, numSamples), s, sampleRate);
+            }
+           /* try {
+                Thread.sleep(randomTime());
+            } catch (InterruptedException e) {}
+            if (audioTrack != null) {
+                audioTrack.release();
+            }*/
+        }
+    }
+
+
+    public void stopPlayback3() {
+        if (audioTrack != null) {
+            audioTrack.stop();
             audioTrack.release();
         }
     }
