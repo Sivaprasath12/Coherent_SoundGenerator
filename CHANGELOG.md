@@ -30,3 +30,6 @@
 * 
 ## [0.0.11] - 16/02/2024
 * new play_calibrations function added
+* 
+## [0.0.12] - 27/02/2024
+* new play_noise with different decibel

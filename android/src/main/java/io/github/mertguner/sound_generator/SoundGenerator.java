@@ -77,7 +77,7 @@ public class SoundGenerator {
     public void setDecibel(float v) {
         if (generator != null)
             generator.setDecibel(v);
-        generator_noise.setDecibel(v);
+        generator_noise.setDecibel(10);
     }
 
     public void setNoiseDecibel(float v) {

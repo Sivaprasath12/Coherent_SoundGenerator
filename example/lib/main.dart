@@ -111,8 +111,9 @@ class _MyAppState extends State<MyApp> {
                               onPressed: () {
                                 isPlaying
                                     ? SoundGenerator.stop()
-                                    : SoundGenerator.play_calibration(1000, 44100, 10922, 44100*3, 0);
-                                // SoundGenerator.play_calibration();
+                                    : SoundGenerator.play();
+                                    // ? SoundGenerator.stop()
+                                    // : SoundGenerator.play_calibration(1000, 44100, 10922, 44100*3, 0);
                               })),
                       SizedBox(height: 5),
                       Divider(
@@ -127,8 +128,10 @@ class _MyAppState extends State<MyApp> {
                                   isPlayingnoise ? Icons.stop : Icons.play_arrow),
                               onPressed: () {
                                 isPlayingnoise
-                                    ? SoundGenerator.stop_noise()
-                                    : SoundGenerator.play_noise();
+                                    ? SoundGenerator.stop()
+                                    : SoundGenerator.play_calibration(1000, 44100, 10922, 44100*3, 0);
+                                    // ? SoundGenerator.stop_noise()
+                                    // : SoundGenerator.play_noise();
                               })),
                       SizedBox(height: 5),
                       Divider(

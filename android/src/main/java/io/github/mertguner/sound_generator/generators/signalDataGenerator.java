@@ -18,7 +18,7 @@ public class signalDataGenerator {
     private float frequency = 50;
 
     private float decibel = 20;
-    private float noise_decibel = 30;
+    private float noise_decibel = 10;
     private baseGenerator generator = new sinusoidalGenerator();
 
     private baseGenerator generator_noise = new NoiseGenerator();
@@ -108,7 +108,6 @@ public class signalDataGenerator {
         creatingNewData = false;
     }*/
 
-    /*
     //without beep sound
     private void updateData() {
         creatingNewData = true;
@@ -135,7 +134,8 @@ public class signalDataGenerator {
 
         creatingNewData = false;
     }
-*/
+
+    /*
     //with beepsound
     private void updateData() {
         creatingNewData = true;
@@ -173,7 +173,7 @@ public class signalDataGenerator {
 
         creatingNewData = false;
     }
-
+*/
 
 
 
