@@ -38,6 +38,12 @@ public class SoundGenerator {
     int actualVolume;
     int numSamples;
     int s;
+
+    int noise_frequency;
+    int noise_sampleRate;
+    int noise_actualVolume;
+    int noise_numSamples;
+    int noise_s;
     //--
 
     public void setAutoUpdateOneCycleSample(boolean autoUpdateOneCycleSample) {
@@ -214,6 +220,9 @@ public class SoundGenerator {
         TestThread  testThread = new TestThread();
         testThread.start();
 
+        TestThread2  testThread2 = new TestThread2();
+        testThread2.start();
+
     }
 
     public void stopPlayback() {
@@ -299,10 +308,15 @@ public class SoundGenerator {
             angle += increment;
         }
         return generatedSnd;
+
     }
 
+
+
+
+
     public AudioTrack playSound(float[] generatedSnd, int ear, int sampleRate) {
-        AudioTrack audioTrack = null;
+      /*  AudioTrack audioTrack = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                     sampleRate,
@@ -319,6 +333,34 @@ public class SoundGenerator {
         } else {
             audioTrack.setStereoVolume(AudioTrack.getMaxVolume(), 0);
         }
+        audioTrack.play();
+        return audioTrack;*/
+
+        int channelConfig = AudioFormat.CHANNEL_OUT_STEREO;
+        int audioFormat = AudioFormat.ENCODING_PCM_FLOAT;
+        int minBufferSize = AudioTrack.getMinBufferSize(sampleRate, channelConfig, audioFormat);
+
+        AudioTrack audioTrack = new AudioTrack(
+                AudioManager.STREAM_MUSIC,
+                sampleRate,
+                channelConfig,
+                audioFormat,
+                Math.max(generatedSnd.length * Float.BYTES, minBufferSize), // Ensure buffer is large enough
+                AudioTrack.MODE_STATIC);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            audioTrack.write(generatedSnd, 0, generatedSnd.length, AudioTrack.WRITE_BLOCKING);
+        }
+
+        // Set volume for left and right channels
+        if (ear == 0) { // Left
+            audioTrack.setStereoVolume(1.0f, 0.0f); // Left max, right mute
+        } else if (ear == 1) { // Right
+            audioTrack.setStereoVolume(0.0f, 1.0f); // Left mute, right max
+        } else {
+            audioTrack.setStereoVolume(1.0f, 1.0f); // Both ears
+        }
+
         audioTrack.play();
         return audioTrack;
     }
@@ -340,7 +382,7 @@ public class SoundGenerator {
 
                 float increment = (float) (2*Math.PI) * frequency / sampleRate;
                 System.out.println("sxkjaxjcuyjc data: "+increment);
-                audioTrack = playSound(genTone(increment,actualVolume, numSamples), s, sampleRate);
+                audioTrack = playSound(genTone(increment,actualVolume, numSamples), 0, sampleRate);
 
 //                float increment = (float) (2*Math.PI) * 1000 / 44100;
 //                audioTrack = playSound(genTone(increment,10922, 44100), 0, 44100);
@@ -354,10 +396,10 @@ public class SoundGenerator {
     }
 
     public void startPlayback3(int start_sampleRate, int start_actualVolume, int start_numSamples,  int s) {
-        sampleRate = start_sampleRate;
-        actualVolume = start_actualVolume;
-        numSamples = start_numSamples;
-        this.s = s;
+        noise_sampleRate = start_sampleRate;
+        noise_actualVolume = start_actualVolume;
+        noise_numSamples = start_numSamples;
+        noise_s = s;
         TestThread2 testThread = new TestThread2();
         testThread.start();
     }
@@ -376,7 +418,7 @@ public class SoundGenerator {
         public void run() {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                audioTrack = playSound(genNoise(actualVolume, numSamples), s, sampleRate);
+                audioTrack = playSound(genNoise(noise_actualVolume, noise_numSamples), noise_s, noise_sampleRate);
             }
            /* try {
                 Thread.sleep(randomTime());

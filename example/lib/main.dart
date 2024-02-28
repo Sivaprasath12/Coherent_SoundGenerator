@@ -135,7 +135,7 @@ class _MyAppState extends State<MyApp> {
                                     //     1000, 44100, 10922, 44100 * 3, 0);
                                     ? SoundGenerator.stop_noise()
                                     : SoundGenerator.play_noise(
-                                        1000, 44100, 10922, 44100 * 30, 1);
+                                        1000, 44100, 1000, 44100 * 30, 1);
                               })),
                       SizedBox(height: 5),
                       Divider(
