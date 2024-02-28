@@ -217,11 +217,11 @@ public class SoundGenerator {
         actualVolume = start_actualVolume;
         numSamples = start_numSamples;
         s = start_s;
+
+//        playToneAndNoise(440.0, 5000);
         TestThread  testThread = new TestThread();
         testThread.start();
 
-        TestThread2  testThread2 = new TestThread2();
-        testThread2.start();
 
     }
 
@@ -314,9 +314,8 @@ public class SoundGenerator {
 
 
 
-
     public AudioTrack playSound(float[] generatedSnd, int ear, int sampleRate) {
-      /*  AudioTrack audioTrack = null;
+        AudioTrack audioTrack = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                     sampleRate,
@@ -334,35 +333,8 @@ public class SoundGenerator {
             audioTrack.setStereoVolume(AudioTrack.getMaxVolume(), 0);
         }
         audioTrack.play();
-        return audioTrack;*/
-
-        int channelConfig = AudioFormat.CHANNEL_OUT_STEREO;
-        int audioFormat = AudioFormat.ENCODING_PCM_FLOAT;
-        int minBufferSize = AudioTrack.getMinBufferSize(sampleRate, channelConfig, audioFormat);
-
-        AudioTrack audioTrack = new AudioTrack(
-                AudioManager.STREAM_MUSIC,
-                sampleRate,
-                channelConfig,
-                audioFormat,
-                Math.max(generatedSnd.length * Float.BYTES, minBufferSize), // Ensure buffer is large enough
-                AudioTrack.MODE_STATIC);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            audioTrack.write(generatedSnd, 0, generatedSnd.length, AudioTrack.WRITE_BLOCKING);
-        }
-
-        // Set volume for left and right channels
-        if (ear == 0) { // Left
-            audioTrack.setStereoVolume(1.0f, 0.0f); // Left max, right mute
-        } else if (ear == 1) { // Right
-            audioTrack.setStereoVolume(0.0f, 1.0f); // Left mute, right max
-        } else {
-            audioTrack.setStereoVolume(1.0f, 1.0f); // Both ears
-        }
-
-        audioTrack.play();
         return audioTrack;
+
     }
 
     public int randomTime(){
@@ -382,7 +354,7 @@ public class SoundGenerator {
 
                 float increment = (float) (2*Math.PI) * frequency / sampleRate;
                 System.out.println("sxkjaxjcuyjc data: "+increment);
-                audioTrack = playSound(genTone(increment,actualVolume, numSamples), 0, sampleRate);
+                audioTrack = playSound(genTone(increment,actualVolume, numSamples), s, sampleRate);
 
 //                float increment = (float) (2*Math.PI) * 1000 / 44100;
 //                audioTrack = playSound(genTone(increment,10922, 44100), 0, 44100);
@@ -435,6 +407,41 @@ public class SoundGenerator {
             audioTrack.stop();
             audioTrack.release();
         }
+    }
+
+
+    public void playToneAndNoise(double toneFreq, int durationMs) {
+        final int sampleRate = 44100;
+        final int numSamples = durationMs * sampleRate / 1000;
+        final double toneSamples[] = new double[numSamples];
+        final double noiseSamples[] = new double[numSamples];
+        final short[] finalSamples = new short[numSamples * 2]; // times 2 for stereo
+        final double tonePhaseIncrement = (2 * Math.PI) * toneFreq / sampleRate;
+        double tonePhase = 0.0;
+        Random random = new Random();
+
+        for (int i = 0; i < numSamples; ++i) {
+            toneSamples[i] = Math.sin(tonePhase);
+            tonePhase += tonePhaseIncrement;
+
+            // Generate white noise by random values
+            noiseSamples[i] = (random.nextDouble() * 2.0) - 1.0; // Range [-1.0, 1.0]
+
+            // Convert to 16 bit pcm sound array
+            final short valTone = (short) ((toneSamples[i] * 32767)); // scale to max amplitude
+            final short valNoise = (short) ((noiseSamples[i] * 32767)); // scale to max amplitude
+
+            finalSamples[2 * i] = 0; // Left channel - pure tone
+            finalSamples[2 * i + 1] = valNoise; // Right channel - noise
+        }
+
+        // Instantiate and play the audio track
+        AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
+                AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
+                finalSamples.length * 2, AudioTrack.MODE_STATIC);
+
+        audioTrack.write(finalSamples, 0, finalSamples.length);
+        audioTrack.play();
     }
 
 

@@ -109,12 +109,13 @@ class _MyAppState extends State<MyApp> {
                               icon: Icon(
                                   isPlaying ? Icons.stop : Icons.play_arrow),
                               onPressed: () {
+
                                 isPlaying
                                     // ? SoundGenerator.stop_noise()
                                     // : SoundGenerator.play_noise();
                                     ? SoundGenerator.stop()
                                     : SoundGenerator.play_calibration(
-                                        1000, 44100, 10922, 44100 * 3, 0);
+                                        1000, 44100, 10922, 44100 * 3, 1);
                               })),
                       SizedBox(height: 5),
                       Divider(
@@ -135,7 +136,7 @@ class _MyAppState extends State<MyApp> {
                                     //     1000, 44100, 10922, 44100 * 3, 0);
                                     ? SoundGenerator.stop_noise()
                                     : SoundGenerator.play_noise(
-                                        1000, 44100, 1000, 44100 * 30, 1);
+                                        1000, 44100, 1000, 44100 * 30, 2);
                               })),
                       SizedBox(height: 5),
                       Divider(
@@ -322,5 +323,7 @@ class _MyAppState extends State<MyApp> {
     SoundGenerator.setAutoUpdateOneCycleSample(true);
     //Force update for one time
     SoundGenerator.refreshOneCycleData();
+
+
   }
 }

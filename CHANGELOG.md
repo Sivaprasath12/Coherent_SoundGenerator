@@ -39,3 +39,6 @@
 * 
 ## [0.0.14] - 28/02/2024
 * new play_noise with dynamic value bug fixes
+* 
+## [0.0.15] - 28/02/2024
+* new play_noise with dynamic value bug fixes
