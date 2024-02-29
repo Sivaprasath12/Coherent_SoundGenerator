@@ -329,8 +329,10 @@ public class SoundGenerator {
         }
         if (ear == 0) {
             audioTrack.setStereoVolume(0, AudioTrack.getMaxVolume());
+        } else if (ear == 1) {
+            audioTrack.setStereoVolume(AudioTrack.getMaxVolume(), 0 );
         } else {
-            audioTrack.setStereoVolume(AudioTrack.getMaxVolume(), 0);
+            audioTrack.setStereoVolume(AudioTrack.getMaxVolume(), AudioTrack.getMaxVolume());
         }
         audioTrack.play();
         return audioTrack;

@@ -42,3 +42,6 @@
 * 
 ## [0.0.15] - 28/02/2024
 * new play_noise with dynamic value bug fixes
+* 
+## [0.0.16] - 29/02/2024
+* Play_calibration can be able to play left 0, right 1 and both ears 2
