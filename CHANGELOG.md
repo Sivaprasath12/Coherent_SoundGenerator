@@ -45,3 +45,6 @@
 * 
 ## [0.0.16] - 29/02/2024
 * Play_calibration can be able to play left 0, right 1 and both ears 2
+*
+## [0.0.17] - 16/03/2024
+* IOS channel setup completed

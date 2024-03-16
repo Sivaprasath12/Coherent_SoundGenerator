@@ -5,30 +5,30 @@ PODS:
   - AudioKit/Core (4.11.2)
   - AudioKit/UI (4.11.2):
     - AudioKit/Core
-  - Flutter (1.0.0)
-  - sound_generator (0.0.1):
+  - coherent_soundgenerator (0.0.1):
     - AudioKit (< 5)
     - Flutter
+  - Flutter (1.0.0)
 
 DEPENDENCIES:
+  - coherent_soundgenerator (from `.symlinks/plugins/coherent_soundgenerator/ios`)
   - Flutter (from `Flutter`)
-  - sound_generator (from `.symlinks/plugins/sound_generator/ios`)
 
 SPEC REPOS:
   trunk:
     - AudioKit
 
 EXTERNAL SOURCES:
+  coherent_soundgenerator:
+    :path: ".symlinks/plugins/coherent_soundgenerator/ios"
   Flutter:
     :path: Flutter
-  sound_generator:
-    :path: ".symlinks/plugins/sound_generator/ios"
 
 SPEC CHECKSUMS:
   AudioKit: 57cc61d708f085763a031e5c3f87adae21dc4b59
+  coherent_soundgenerator: 05070d1e881555f15a4f65d2ea477749fd217898
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  sound_generator: 9dbd7c16f7023add0e875c150c6e64ed47a71b6a
 
-PODFILE CHECKSUM: fab1396abc626fd8cb35af1a9e5de14d4a5e1b92
+PODFILE CHECKSUM: ac64e343a07ea0a8702ea085d95f1819542977b9
 
 COCOAPODS: 1.14.3

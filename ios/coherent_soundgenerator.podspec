@@ -3,7 +3,7 @@
 # Run `pod lib lint sound_generator.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'sound_generator'
+  s.name             = 'coherent_soundgenerator'
   s.version          = '0.0.1'
   s.summary          = 'A new Flutter plugin.'
   s.description      = <<-DESC
