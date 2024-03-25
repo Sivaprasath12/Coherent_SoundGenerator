@@ -311,6 +311,31 @@ public class SoundGenerator {
 
     }
 
+    public float[] genPulseTone(float increment, int volume, int numSamples) {
+        float angle = 0;
+        float[] generatedSnd = new float[numSamples];
+
+        // Define the pulse period in terms of number of samples.
+        // For example, if you want the tone to pulse on and off every half second at a sample rate of 44100 Hz,
+        // you could set the pulsePeriod to sampleRate * 0.5 (assuming a sampleRate variable exists).
+        // For simplicity, let's assume a fixed pulse period:
+        int pulsePeriod = 44100 / 20; // This will toggle the sound roughly every 1/4 second at 44100 Hz sample rate
+
+        for (int i = 0; i < numSamples; i++) {
+            // Check if we are in an "on" or "off" part of the pulse period
+            boolean isPulseOn = (i / pulsePeriod) % 2 == 0;
+
+            if (isPulseOn) {
+                generatedSnd[i] = (float) (Math.sin(angle) * volume / 32768);
+            } else {
+                generatedSnd[i] = 0; // Silence part of the pulse
+            }
+
+            angle += increment;
+        }
+        return generatedSnd;
+    }
+
 
 
 
@@ -356,7 +381,8 @@ public class SoundGenerator {
 
                 float increment = (float) (2*Math.PI) * frequency / sampleRate;
                 System.out.println("sxkjaxjcuyjc data: "+increment);
-                audioTrack = playSound(genTone(increment,actualVolume, numSamples), s, sampleRate);
+//                audioTrack = playSound(genTone(increment,actualVolume, numSamples), s, sampleRate);
+                audioTrack = playSound(genPulseTone(increment,actualVolume, numSamples), s, sampleRate);
 
 //                float increment = (float) (2*Math.PI) * 1000 / 44100;
 //                audioTrack = playSound(genTone(increment,10922, 44100), 0, 44100);

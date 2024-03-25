@@ -48,3 +48,5 @@
 *
 ## [0.0.17] - 16/03/2024
 * IOS channel setup completed
+## [0.0.19] - 25/03/2024
+* Pulse tone added 

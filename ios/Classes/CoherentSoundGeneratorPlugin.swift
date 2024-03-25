@@ -204,12 +204,19 @@ public class CoherentSoundGeneratorPlugin: NSObject, FlutterPlugin {
       }
     
     
+//    func startPlayback(frequency: Int, sampleRate: Int, actualVolume: Int, numSamples: Int, s: Int) {
+//            let increment = (2.0 * Double.pi * Double(frequency)) / Double(sampleRate)
+//            let generatedTone = genTone(increment: increment, volume: actualVolume, numSamples: numSamples)
+//
+//            playSound(generatedSnd: generatedTone, ear: s, sampleRate: sampleRate)
+//        }
     func startPlayback(frequency: Int, sampleRate: Int, actualVolume: Int, numSamples: Int, s: Int) {
-            let increment = (2.0 * Double.pi * Double(frequency)) / Double(sampleRate)
-            let generatedTone = genTone(increment: increment, volume: actualVolume, numSamples: numSamples)
+        let increment = (2.0 * Float.pi * Float(frequency)) / Float(sampleRate)
+        let generatedTone = genTone(increment: increment, volume: actualVolume, numSamples: numSamples)
 
-            playSound(generatedSnd: generatedTone, ear: s, sampleRate: sampleRate)
-        }
+        playSound(generatedSnd: generatedTone, ear: s, sampleRate: sampleRate)
+    }
+
     
     func genNoise(volume: Int, numSamples: Int) -> [Float] {
           var generatedSnd = [Float](repeating: 0.0, count: numSamples)
@@ -219,39 +226,89 @@ public class CoherentSoundGeneratorPlugin: NSObject, FlutterPlugin {
           return generatedSnd
       }
 
-    func genTone(increment: Double, volume: Int, numSamples: Int) -> [Float] {
-        var angle: Double = 0
-        var generatedSnd = [Float](repeating: 0.0, count: numSamples)
-
+//    func genTone(increment: Double, volume: Int, numSamples: Int) -> [Float] {
+//        var angle: Double = 0
+//        var generatedSnd = [Float](repeating: 0.0, count: numSamples)
+//
+//        for i in 0..<numSamples {
+//            generatedSnd[i] = Float(sin(angle) * Double(volume) / 32768.0)
+//            angle += increment
+//        }
+//
+//        return generatedSnd
+//    }
+    
+    func genTone(increment: Float, volume: Int, numSamples: Int) -> [Float] {
+        var angle: Float = 0
+        var generatedSound = [Float](repeating: 0.0, count: numSamples)
         for i in 0..<numSamples {
-            generatedSnd[i] = Float(sin(angle) * Double(volume) / 32768.0)
+            generatedSound[i] = sin(angle) * Float(volume) / 32768.0
             angle += increment
         }
-
-        return generatedSnd
+        return generatedSound
     }
 
+
+//    func playSound(generatedSnd: [Float], ear: Int, sampleRate: Int) {
+//        stopPlayback() // Ensure any existing playback is stopped
+//
+//        audioEngine = AVAudioEngine()
+//        audioPlayerNode = AVAudioPlayerNode()
+//        audioFormat = AVAudioFormat(standardFormatWithSampleRate: Double(sampleRate), channels: 1)
+//
+//        guard let audioEngine = audioEngine, let audioPlayerNode = audioPlayerNode, let audioFormat = audioFormat else { return }
+//
+//        audioEngine.attach(audioPlayerNode)
+//        audioEngine.connect(audioPlayerNode, to: audioEngine.mainMixerNode, format: audioFormat)
+//
+//        do {
+//            let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: AVAudioFrameCount(generatedSnd.count))
+//            buffer?.frameLength = buffer!.frameCapacity
+//            let channelData = buffer?.floatChannelData![0]
+//            memcpy(channelData, generatedSnd, generatedSnd.count * MemoryLayout<Float>.size)
+//
+//            try audioEngine.start()
+//            audioPlayerNode.scheduleBuffer(buffer!, at: nil, options: [], completionHandler: nil)
+//
+//            // Adjust pan based on the 'ear' parameter
+//            switch ear {
+//            case 0: // Left ear
+//                audioPlayerNode.pan = -1.0
+//            case 1: // Right ear
+//                audioPlayerNode.pan = 1.0
+//            default: // Both ears
+//                audioPlayerNode.pan = 0.0
+//            }
+//
+//            audioPlayerNode.play()
+//
+//
+//        } catch {
+//            print("Error starting audio engine: \(error)")
+//        }
+//    }
+    
     func playSound(generatedSnd: [Float], ear: Int, sampleRate: Int) {
         stopPlayback() // Ensure any existing playback is stopped
-
+        print("starrrrrrr start playback now.")
         audioEngine = AVAudioEngine()
         audioPlayerNode = AVAudioPlayerNode()
         audioFormat = AVAudioFormat(standardFormatWithSampleRate: Double(sampleRate), channels: 1)
-
+        
         guard let audioEngine = audioEngine, let audioPlayerNode = audioPlayerNode, let audioFormat = audioFormat else { return }
-
+        
         audioEngine.attach(audioPlayerNode)
         audioEngine.connect(audioPlayerNode, to: audioEngine.mainMixerNode, format: audioFormat)
-
+        
         do {
             let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: AVAudioFrameCount(generatedSnd.count))
             buffer?.frameLength = buffer!.frameCapacity
             let channelData = buffer?.floatChannelData![0]
             memcpy(channelData, generatedSnd, generatedSnd.count * MemoryLayout<Float>.size)
-
+            
             try audioEngine.start()
             audioPlayerNode.scheduleBuffer(buffer!, at: nil, options: [], completionHandler: nil)
-
+            
             // Adjust pan based on the 'ear' parameter
             switch ear {
             case 0: // Left ear
@@ -261,13 +318,24 @@ public class CoherentSoundGeneratorPlugin: NSObject, FlutterPlugin {
             default: // Both ears
                 audioPlayerNode.pan = 0.0
             }
-
+            
             audioPlayerNode.play()
-
+            
+//            // Stop the sound after 1 second
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                print("starrrrrrr stop playback now.")
+//                audioPlayerNode.stop()
+//
+//                // Optional: If you also want to stop and reset the audio engine, uncomment the following lines
+//                 audioEngine.stop()
+//                 audioEngine.reset()
+//            }
+            
         } catch {
             print("Error starting audio engine: \(error)")
         }
     }
+
     
     func playSound_noise(generatedSnd: [Float], ear: Int, sampleRate: Int) {
         stopPlayback_noise() // Ensure any existing playback is stopped
