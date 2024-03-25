@@ -212,7 +212,8 @@ public class CoherentSoundGeneratorPlugin: NSObject, FlutterPlugin {
 //        }
     func startPlayback(frequency: Int, sampleRate: Int, actualVolume: Int, numSamples: Int, s: Int) {
         let increment = (2.0 * Float.pi * Float(frequency)) / Float(sampleRate)
-        let generatedTone = genTone(increment: increment, volume: actualVolume, numSamples: numSamples)
+//        let generatedTone = genTone(increment: increment, volume: actualVolume, numSamples: numSamples)
+        let generatedTone = genPulseTone(increment: increment, volume: actualVolume, numSamples: numSamples)
 
         playSound(generatedSnd: generatedTone, ear: s, sampleRate: sampleRate)
     }
@@ -246,6 +247,24 @@ public class CoherentSoundGeneratorPlugin: NSObject, FlutterPlugin {
             angle += increment
         }
         return generatedSound
+    }
+    
+    func genPulseTone(increment: Float, volume: Int, numSamples: Int) -> [Float] {
+        var angle: Float = 0
+        var generatedSnd = [Float](repeating: 0, count: numSamples)
+        let pulsePeriod = 44100 / 10 // Adjust for faster or slower pulse
+
+        for i in 0..<numSamples {
+            let isPulseOn = (i / pulsePeriod) % 2 == 0
+            if isPulseOn {
+                generatedSnd[i] = sin(angle) * Float(volume) / 32768.0
+            } else {
+                generatedSnd[i] = 0
+            }
+            angle += increment
+        }
+        
+        return generatedSnd
     }
 
 

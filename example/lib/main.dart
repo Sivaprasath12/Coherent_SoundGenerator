@@ -115,7 +115,7 @@ class _MyAppState extends State<MyApp> {
                                     // : SoundGenerator.play();
                                     ? SoundGenerator.stop()
                                     : SoundGenerator.play_calibration(
-                                        1000, 44100, 10922, 44100 * 3, 0);
+                                        1000, 44100, 10922, 44100 * 1, 0);
                               })),
                       SizedBox(height: 5),
                       Divider(
@@ -136,7 +136,7 @@ class _MyAppState extends State<MyApp> {
                                     //     1000, 44100, 10922, 44100 * 3, 0);
                                     ? SoundGenerator.stop_noise()
                                     : SoundGenerator.play_noise(
-                                        1000, 44100, 500, 44100 * 3, 1);
+                                        1000, 44100, 500, 44100 * 1, 1);
                               })),
                       SizedBox(height: 5),
                       Divider(
