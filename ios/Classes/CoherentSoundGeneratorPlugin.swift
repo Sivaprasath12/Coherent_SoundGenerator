@@ -252,7 +252,7 @@ public class CoherentSoundGeneratorPlugin: NSObject, FlutterPlugin {
     func genPulseTone(increment: Float, volume: Int, numSamples: Int) -> [Float] {
         var angle: Float = 0
         var generatedSnd = [Float](repeating: 0, count: numSamples)
-        let pulsePeriod = 44100 / 10 // Adjust for faster or slower pulse
+        let pulsePeriod = 44100 / 20 // Adjust for faster or slower pulse
 
         for i in 0..<numSamples {
             let isPulseOn = (i / pulsePeriod) % 2 == 0

@@ -52,3 +52,5 @@
 * Pulse tone added
 ## [0.0.20] - 25/03/2024
 * Pulse tone added in ios
+## [0.0.21] - 25/03/2024
+* Pulse tone added in ios fixed
