@@ -1,4 +1,4 @@
-package io.github.mertguner.sound_generator.generators;
+package io.github.coherent.sound_generator.generators;
 
 public class sawtoothGenerator extends baseGenerator {
     public short getValue(double phase, double period) {

@@ -1,4 +1,4 @@
-package io.github.mertguner.sound_generator;
+package io.github.coherent.sound_generator;
 
 import androidx.annotation.NonNull;
 
@@ -9,10 +9,10 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-import io.github.mertguner.sound_generator.handlers.getOneCycleDataHandler;
-import io.github.mertguner.sound_generator.handlers.isPlayingStreamHandler;
-import io.github.mertguner.sound_generator.handlers.isPlayingStreamNoiseHandler;
-import io.github.mertguner.sound_generator.models.WaveTypes;
+import io.github.coherent.sound_generator.handlers.getOneCycleDataHandler;
+import io.github.coherent.sound_generator.handlers.isPlayingStreamHandler;
+import io.github.coherent.sound_generator.handlers.isPlayingStreamNoiseHandler;
+import io.github.coherent.sound_generator.models.WaveTypes;
 /** SoundGeneratorPlugin */
 public class SoundGeneratorPlugin implements FlutterPlugin, MethodCallHandler {
   /// The MethodChannel that will the communication between Flutter and native Android

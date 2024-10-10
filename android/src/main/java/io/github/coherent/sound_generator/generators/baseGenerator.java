@@ -1,4 +1,4 @@
-package io.github.mertguner.sound_generator.generators;
+package io.github.coherent.sound_generator.generators;
 
 public abstract class baseGenerator {
 

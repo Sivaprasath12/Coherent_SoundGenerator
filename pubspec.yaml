@@ -27,7 +27,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: io.github.mertguner.sound_generator
+        package: io.github.coherent.sound_generator
         pluginClass: SoundGeneratorPlugin
       ios:
         pluginClass: SoundGeneratorPlugin

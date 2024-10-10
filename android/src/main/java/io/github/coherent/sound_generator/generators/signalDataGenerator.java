@@ -1,10 +1,10 @@
-package io.github.mertguner.sound_generator.generators;
+package io.github.coherent.sound_generator.generators;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import io.github.mertguner.sound_generator.handlers.getOneCycleDataHandler;
+import io.github.coherent.sound_generator.handlers.getOneCycleDataHandler;
 
 public class signalDataGenerator {
 
