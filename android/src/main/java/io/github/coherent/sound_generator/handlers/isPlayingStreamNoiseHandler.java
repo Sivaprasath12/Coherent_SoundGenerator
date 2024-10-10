@@ -1,10 +1,10 @@
-package io.github.mertguner.sound_generator.handlers;
+package io.github.coherent.sound_generator.handlers;
 
 import io.flutter.plugin.common.EventChannel;
 
 public class isPlayingStreamNoiseHandler implements EventChannel.StreamHandler {
         public static final String NATIVE_CHANNEL_EVENT = "io.github.coherent.sound_generator/onChangeIsPlayingnoise";
-        private volatile static io.github.mertguner.sound_generator.handlers.isPlayingStreamNoiseHandler mEventManager;
+        private volatile static io.github.coherent.sound_generator.handlers.isPlayingStreamNoiseHandler mEventManager;
         EventChannel.EventSink eventSink;
 
         public isPlayingStreamNoiseHandler()

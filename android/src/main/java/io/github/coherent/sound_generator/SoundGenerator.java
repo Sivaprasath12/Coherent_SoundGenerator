@@ -1,4 +1,4 @@
-package io.github.mertguner.sound_generator;
+package io.github.coherent.sound_generator;
 
 import android.annotation.TargetApi;
 import android.media.AudioFormat;
@@ -8,15 +8,15 @@ import android.os.Build;
 
 import java.util.Random;
 
-import io.github.mertguner.sound_generator.generators.NoiseGenerator;
-import io.github.mertguner.sound_generator.generators.sawtoothGenerator;
-import io.github.mertguner.sound_generator.generators.signalDataGenerator;
-import io.github.mertguner.sound_generator.generators.sinusoidalGenerator;
-import io.github.mertguner.sound_generator.generators.squareWaveGenerator;
-import io.github.mertguner.sound_generator.generators.triangleGenerator;
-import io.github.mertguner.sound_generator.handlers.isPlayingStreamHandler;
-import io.github.mertguner.sound_generator.handlers.isPlayingStreamNoiseHandler;
-import io.github.mertguner.sound_generator.models.WaveTypes;
+import io.github.coherent.sound_generator.generators.NoiseGenerator;
+import io.github.coherent.sound_generator.generators.sawtoothGenerator;
+import io.github.coherent.sound_generator.generators.signalDataGenerator;
+import io.github.coherent.sound_generator.generators.sinusoidalGenerator;
+import io.github.coherent.sound_generator.generators.squareWaveGenerator;
+import io.github.coherent.sound_generator.generators.triangleGenerator;
+import io.github.coherent.sound_generator.handlers.isPlayingStreamHandler;
+import io.github.coherent.sound_generator.handlers.isPlayingStreamNoiseHandler;
+import io.github.coherent.sound_generator.models.WaveTypes;
 
 @TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class SoundGenerator {

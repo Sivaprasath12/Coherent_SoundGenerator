@@ -1,4 +1,4 @@
-package io.github.mertguner.sound_generator.handlers;
+package io.github.coherent.sound_generator.handlers;
 
 import java.util.List;
 

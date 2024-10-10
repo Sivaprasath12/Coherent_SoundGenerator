@@ -1,4 +1,4 @@
-package io.github.mertguner.sound_generator.models;
+package io.github.coherent.sound_generator.models;
 
 public enum WaveTypes {
     SINUSOIDAL,
