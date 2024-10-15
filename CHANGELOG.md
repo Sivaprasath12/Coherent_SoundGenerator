@@ -56,3 +56,5 @@
 * Pulse tone added in ios fixed
 ## [0.0.33] - 06/09/2024
 * Bug fixed
+## [0.0.34] - 15/10/2024
+* Improvised platform feature
