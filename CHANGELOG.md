@@ -58,3 +58,5 @@
 * Bug fixed
 ## [0.0.34] - 15/10/2024
 * Improvised platform feature
+## [0.0.35] - 15/02/2025
+* Gradle upgrade

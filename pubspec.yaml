@@ -1,6 +1,6 @@
 name: coherent_soundgenerator
 description: This plugin is a procedural sound generator. It provides fluidly sound transitions in frequency changes. You can see real signal shape with one Cycle snapshot properties
-version: 0.0.34
+version: 0.0.35
 homepage: https://github.com/Sivaprasath12/Coherent_SoundGenerator.git
 
 environment:
