@@ -84,14 +84,23 @@ class SoundGenerator {
     //   "s": s
     // });
     final bool play_calibration =
-        (await _channel.invokeMethod("play_calibration", <String, dynamic>{
-              "frequency": frequency,
-              "sampleRate": sampleRate,
-              "actualVolume": actualVolume,
-              "numSamples": numSamples,
-              "s": s
+        (await _channel.invokeMethod("play_calibration", {
+              "frequency": frequency.toInt(),
+              "sampleRate": sampleRate.toInt(),
+              "actualVolume": actualVolume.toInt(),
+              "numSamples": numSamples.toInt(),
+              "s": s.toInt(),
             })) ??
             false;
+    // final bool play_calibration =
+    //     (await _channel.invokeMethod("play_calibration", <String, dynamic>{
+    //           "frequency": frequency,
+    //           "sampleRate": sampleRate,
+    //           "actualVolume": actualVolume,
+    //           "numSamples": numSamples,
+    //           "s": s
+    //         })) ??
+    //         false;
     return play_calibration;
   }
 

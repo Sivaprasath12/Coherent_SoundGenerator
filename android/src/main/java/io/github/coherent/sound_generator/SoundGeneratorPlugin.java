@@ -43,7 +43,7 @@ public class SoundGeneratorPlugin implements FlutterPlugin, MethodCallHandler {
     try {
       switch (call.method) {
         case "init": {
-          Integer sampleRate = call.argument("sampleRate");
+          Integer sampleRate = call.argument("sampleRate")!= null ? ((Number) call.argument("sampleRate")).intValue() : null;
           if (sampleRate == null) {
             result.error("INVALID_ARGUMENT", "sampleRate is required", null);
             return;
@@ -60,11 +60,11 @@ public class SoundGeneratorPlugin implements FlutterPlugin, MethodCallHandler {
           result.success(null);
           break;
         case "play_calibration": {
-          Integer frequency = call.argument("frequency");
-          Integer sampleRate = call.argument("sampleRate");
-          Integer actualVolume = call.argument("actualVolume");
-          Integer numSamples = call.argument("numSamples");
-          Integer s = call.argument("s");
+          Integer frequency = call.argument("frequency") != null ? ((Number) call.argument("frequency")).intValue() : null;
+          Integer sampleRate = call.argument("sampleRate") != null ? ((Number) call.argument("sampleRate")).intValue() : null;
+          Integer actualVolume = call.argument("actualVolume") != null ? ((Number) call.argument("actualVolume")).intValue() : null;
+          Integer numSamples = call.argument("numSamples")!= null ? ((Number) call.argument("numSamples")).intValue() : null;
+          Integer s = call.argument("s") != null ? ((Number) call.argument("s")).intValue() : null;
 
           if (frequency == null || sampleRate == null || actualVolume == null || numSamples == null || s == null) {
             result.error("INVALID_ARGUMENT", "Missing parameters for play_calibration", null);
@@ -79,10 +79,10 @@ public class SoundGeneratorPlugin implements FlutterPlugin, MethodCallHandler {
           result.success(null);
           break;
         case "play_noise": {
-          Integer sampleRate = call.argument("sampleRate");
-          Integer actualVolume = call.argument("actualVolume");
-          Integer numSamples = call.argument("numSamples");
-          Integer s = call.argument("s");
+          Integer sampleRate = call.argument("sampleRate") != null ? ((Number) call.argument("sampleRate")).intValue() : null;
+          Integer actualVolume = call.argument("actualVolume") != null ? ((Number) call.argument("actualVolume")).intValue() : null;
+          Integer numSamples = call.argument("numSamples")!= null ? ((Number) call.argument("numSamples")).intValue() : null;
+          Integer s = call.argument("s") != null ? ((Number) call.argument("s")).intValue() : null;
 
           if (sampleRate == null || actualVolume == null || numSamples == null || s == null) {
             result.error("INVALID_ARGUMENT", "Missing parameters for play_noise", null);
