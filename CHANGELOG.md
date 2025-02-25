@@ -60,3 +60,5 @@
 * Improvised platform feature
 ## [0.0.35] - 15/02/2025
 * Gradle upgrade
+## [0.0.36] - 25/02/2025
+* Bug Fixed
